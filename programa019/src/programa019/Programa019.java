@@ -11,6 +11,7 @@ public class Programa019 {
             String cadena="archivo creado";
             FileOutputStream stream=new FileOutputStream(lugar);
             stream.write(cadena.getBytes());
+            stream.close();
         }catch(Exception ex){
             System.out.println(ex.getMessage());
             ex.printStackTrace();
@@ -33,19 +34,22 @@ public class Programa019 {
         }*/
         File lugar=new File("./datos.txt");
         try{
-            Estudiante e=new Estudiante("pepe","av las banderas");
-            Nota materia1=new Nota(51,60,70);
-            Nota materia2=new Nota(15,26,45);
-            Datos d=new Datos(e);
-            d.notas.add(materia1);
-            d.notas.add(materia2);
-            FileOutputStream fileStream=new FileOutputStream(lugar);
-            ObjectOutputStream stream=new ObjectOutputStream(fileStream);
-            stream.writeObject(d);
+            Datos d;
+            FileInputStream fileStream=new FileInputStream(lugar);
+            ObjectInputStream stream=new ObjectInputStream(fileStream);
+            d=(Datos)stream.readObject();            
             stream.close();
+            System.out.println(d.estudiante.nombre);
+            System.out.println(d.estudiante.direccion);
+            System.out.println(d.notas.get(0).p1);
+            System.out.println(d.notas.get(0).p2);
+            System.out.println(d.notas.get(0).p3);
+            System.out.println(d.notas.get(1).p1);
+            System.out.println(d.notas.get(1).p2);
+            System.out.println(d.notas.get(1).p3);
         }catch(Exception ex){
             System.out.println(ex.getMessage());
-            ex.printStackTrace();
+            ex.printStackTrace(); 
         }
     }
 }
